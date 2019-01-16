@@ -18,7 +18,7 @@ class MovieLister
     {
         $client = new GuzzleHttp\Client();
         $request = $client->request('GET', 'https://api.themoviedb.org/3/movie/popular?api_key=' . self::API_KEY . '&language=fr-FR&region=FR');
-        $popularMovies = json_decode($request->getBody(), true);
+        $popularMovies = json_decode($request->getBody(), true)['results'];
 
         return $popularMovies;
     }
