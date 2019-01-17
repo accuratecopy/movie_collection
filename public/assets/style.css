@@ -2,3 +2,7 @@ body{
     background-color: #000000;
     margin-top: 5%;
 }
+
+.background-transparent{
+    background-color: rgba(0,0,0,0.5);
+}
