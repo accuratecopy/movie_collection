@@ -3,29 +3,28 @@
 {% block title %}Index - Liste des films les plus populaires{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
-    <div class="row">
-    {% for popularMovie in popularMovies %}
-        <div class="col">
-            <div class="card mb-5" style="width: 24rem;">
-                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ popularMovie.poster_path }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ popularMovie.title }}</h5>
-                    <p class="card-text">Nom d'origine : {{ popularMovie.original_title }}</p>
-                    <p class="card-text">{{ popularMovie.overview }}</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <h5>Date de sortie : {{ popularMovie.release_date }}</h5>
+    <div class="container-fluid">
+        <div class="row">
+            <ul class="list">
+                {% for popularMovie in popularMovies %}
+                    <li class="media mr-5 mb-4">
+                        <img class="img-fluid mr-3"
+                             src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ popularMovie.poster_path }}"
+                             alt="Generic placeholder image">
+                        <div class="media-body">
+                            <h3 class="mt-0 mb-3">{{ popularMovie.title }}</h3>
+                            <p>Nom d'origine : {{ popularMovie.original_title }}</p>
+                            <p>Date de sortie : {{ popularMovie.release_date }}</p>
+                            <p>{{ popularMovie.overview }}</p>
+                            <p>
+                                <a href="#" class="btn btn-info"><i class="fas fa-film"></i> Voir le film</a>
+                                <a href="#" class="btn btn-info"><i class="fas fa-folder-plus"></i> Ajouter à la
+                                    collection</a>
+                            </p>
+                        </div>
                     </li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="btn btn-info"><i class="fas fa-film"></i> Voir le film</a>
-                    <a href="#" class="btn btn-info"><i class="fas fa-folder-plus"></i> Ajouter à la collection</a>
-                </div>
-            </div>
+                {% endfor %}
+            </ul>
         </div>
-    {% endfor %}
     </div>
-</div>
 {% endblock %}
