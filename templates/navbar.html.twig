@@ -16,18 +16,29 @@
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
         </ul>
+
         <ul class="navbar-nav mr-5">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ app.user.lastName }} {{ app.user.firstName }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a href="{{ path('app_logout') }}" class="nav-link"><i
+                                class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                </div>
+            </li>
+                {% else %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     User
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a href="{{ path('app_login') }}" class="nav-link"><i
+                                class="fas fa-sign-out-alt"></i> Connexion</a>
                 </div>
             </li>
+            {% endif %}
             <li class="mr-5">
             </li>
         </ul>
