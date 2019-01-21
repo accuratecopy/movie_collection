@@ -17,7 +17,7 @@
                             <p>Date de sortie : {{ popularMovie.release_date }}</p>
                             <p>{{ popularMovie.overview }}</p>
                             <p>
-                                <a href="#" class="btn btn-info"><i class="fas fa-film"></i> Voir le film</a>
+                                <a href="{{ path('movie_show', {'movieId': popularMovie.id }) }}" class="btn btn-info"><i class="fas fa-film"></i> Voir le film</a>
                                 <a href="#" class="btn btn-info"><i class="fas fa-folder-plus"></i> Ajouter à la
                                     collection</a>
                             </p>
