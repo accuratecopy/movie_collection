@@ -30,7 +30,7 @@ class MovieController extends AbstractController
     {
         $movieDetails = $movieLister->listOneMovieById($movieId);
         return $this->render('movie/show.html.twig', [
-            'movie_details' => $movieDetails,
+            'movieDetails' => $movieDetails,
         ]);
     }
 }
