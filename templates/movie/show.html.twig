@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ movieDetails.title }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ movieDetails.title }}</h1>
+    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ movieDetails.poster_path }}">
+    <ul>
+        <li>
+            Genre :
+        {% for i in 0..(movieDetails.genres|length-1) %}
+            {{ movieDetails.genres[i].name }}
+        {% endfor %}
+        </li>
+        <li>
+            Date de sortie : {{ movieDetails.release_date }}
+        </li>
+        <li>
+            Page web : <a href="{{ movieDetails.homepage }}" target="_blank">{{ movieDetails.homepage }}</a>
+        </li>
+        <li>
+            Résumé : {{ movieDetails.overview }}
+        </li>
+    </ul>
+</div>
+{% endblock %}
