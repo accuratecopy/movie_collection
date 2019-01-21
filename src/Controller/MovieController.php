@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\MovieLister;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,13 +21,16 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movie/{id}", name="movie_show")
+     * @Route("/movie/{movieId}", name="movie_show")
      * @param MovieLister $movieLister
+     * @ParamConverter("movieId", options={"movieId" = "id"})
      * @return Response
      */
-    public function show(MovieLister $movieLister) :Response
+    public function show(MovieLister $movieLister, int $movieId) :Response
     {
-        $movieDetails = $movieLister->listOneMovieById()
-        return $this->render('movie/show.html.twig');
+        $movieDetails = $movieLister->listOneMovieById($movieId);
+        return $this->render('movie/show.html.twig', [
+            'movie_details' => $movieDetails,
+        ]);
     }
 }

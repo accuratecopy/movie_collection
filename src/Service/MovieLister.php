@@ -28,7 +28,7 @@ class MovieLister
     public function listOneMovieById(int $movieId)
     {
         $client = new GuzzleHttp\Client();
-        $request = $client->request('GET', self::BASE_URI_MOVIE . $movieId . '/?api_key=' . self::API_KEY . '&append_to_response=videos,images' . self::LANGUAGE_REGION);
+        $request = $client->request('GET', self::BASE_URI_MOVIE . $movieId . '?api_key=' . self::API_KEY . '&append_to_response=videos,images' . self::LANGUAGE_REGION);
         $movieDetails = json_decode($request->getBody(), true);
 
         return $movieDetails;
