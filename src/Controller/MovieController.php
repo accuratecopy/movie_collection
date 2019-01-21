@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MovieController extends AbstractController
 {
     /**
-     * @Route("/movie", name="movie_index")
+     * @Route("/movie/collection", name="movie_collection")
      */
     public function index()
     {
