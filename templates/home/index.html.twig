@@ -4,6 +4,14 @@
 
 {% block body %}
     <div class="container-fluid">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.submit, { 'label': 'Submit me' }) }}
+        {{ form_end(form) }}
+    </div>
+    <div class="container-fluid">
+        <h1>Films populaires</h1>
         <div class="row">
             <ul class="list">
                 {% for popularMovie in popularMovies %}
