@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Movie;
 use App\Repository\MovieRepository;
 use App\Service\MovieLister;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,15 +15,16 @@ class MovieController extends AbstractController
 {
     /**
      * @Route("/movies", name="movie_collection")
+     * @param MovieLister $movieLister
+     * @param MovieRepository $movieRepository
+     * @return Response
      */
-    public function index(MovieLister $movieLister, MovieRepository $movie)
+    public function index(MovieLister $movieLister, MovieRepository $movieRepository) :Response
     {
-        $movies = $movie->findAll();
-        foreach($movies as $oneMovie) {
-            $movieJsons[] = $movieLister->listMovie($oneMovie->getMovieId());
+        $movies = $movieRepository->findAll();
+        foreach($movies as $movie) {
+            $movieJsons[] = $movieLister->listMovie($movie->getMovieId());
         }
-
-//        dd($movieJsons);
 
         return $this->render('movie/index.html.twig', [
             'movieJsons' => $movieJsons,
@@ -49,21 +49,36 @@ class MovieController extends AbstractController
     /**
      * @Route("/movie/add/{movieId}", name="movie_add")
      * @param int $movieId
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      * @ParamConverter("movieId", options={"movieId" = "id"})
      */
     public function addMovie(int $movieId, EntityManagerInterface $em) : Response
     {
-
         $movie = new Movie();
         $movie->setMovieId($movieId);
 
         $movie->addUserId($this->getUser());
 
         $em->persist($movie);
+        $em->flush();
+
+        return $this->redirectToRoute('movie_collection');
+    }
+
+    /**
+     * @Route("/movie/remove/{movieId}", name="movie_remove")
+     * @param int $movieId
+     * @param MovieRepository $movieRepository
+     * @param EntityManagerInterface $em
+     * @return Response
+     * @ParamConverter("movieId", options={"movieId" = "id"})
+     */
+    public function removeMovie(int $movieId, MovieRepository $movieRepository, EntityManagerInterface $em) : Response
+    {
+        $movie = $movieRepository->findOneBy(['movieId' => $movieId]);
+
+        $em->remove($movie);
         $em->flush();
 
         return $this->redirectToRoute('movie_collection');
