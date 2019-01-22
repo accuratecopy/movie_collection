@@ -6,16 +6,18 @@
 <div class="container">
     <h1>Ma Collection</h1>
 
-    {% for movieJson in movieJsons %}
-    <div class="card" style="width: 18rem;">
-        <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ movieJson.poster_path }}" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{  movieJson.title }}</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="row">
+        {% for movieJson in movieJsons %}
+        <div class="col-3">
+            <div class="card bg-dark text-white">
+                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ movieJson.poster_path }}" class="card-img-top" alt="{{ movieJson.title }}_poster">
+                <div class="card-body">
+                    <h5 class="card-title">{{ movieJson.title }}</h5>
+                    <a href="{{ path('movie_show', {'movieId': movieJson.id }) }}" class="btn btn-info"><i class="fas fa-film"></i> Voir le film</a>
+                </div>
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-
 </div>
 {% endblock %}

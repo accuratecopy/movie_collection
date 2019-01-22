@@ -66,8 +66,6 @@ class MovieController extends AbstractController
         $em->persist($movie);
         $em->flush();
 
-        return $this->redirectToRoute('movie_collection', [
-            'controller_name' => 'MovieController',
-        ]);
+        return $this->redirectToRoute('movie_collection');
     }
 }
