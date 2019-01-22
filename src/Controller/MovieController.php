@@ -67,7 +67,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movie/remove/{movieId}", name="movie_add")
+     * @Route("/movie/remove/{movieId}", name="movie_remove")
      * @param int $movieId
      * @param MovieRepository $movieRepository
      * @param EntityManagerInterface $em
@@ -80,5 +80,7 @@ class MovieController extends AbstractController
 
         $em->remove($movie);
         $em->flush();
+
+        return $this->redirectToRoute('movie_collection');
     }
 }
