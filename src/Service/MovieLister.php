@@ -33,4 +33,13 @@ class MovieLister
 
         return $movieDetails;
     }
+
+    public function listMovie(int $movieId)
+    {
+        $client = new GuzzleHttp\Client();
+        $request = $client->request('GET', self::BASE_URI_MOVIE . $movieId . '?api_key=' . self::API_KEY . self::LANGUAGE_REGION);
+        $json = json_decode($request->getBody());
+
+        return $json;
+    }
 }
