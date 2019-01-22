@@ -17,14 +17,12 @@ class MovieController extends AbstractController
     /**
      * @Route("/movies", name="movie_collection")
      */
-    public function index(MovieLister $movieLister, MovieRepository $movie)
+    public function index(MovieLister $movieLister, MovieRepository $movieRepository)
     {
-        $movies = $movie->findAll();
-        foreach($movies as $oneMovie) {
-            $movieJsons[] = $movieLister->listMovie($oneMovie->getMovieId());
+        $movies = $movieRepository->findAll();
+        foreach($movies as $movie) {
+            $movieJsons[] = $movieLister->listMovie($movie->getMovieId());
         }
-
-//        dd($movieJsons);
 
         return $this->render('movie/index.html.twig', [
             'movieJsons' => $movieJsons,
@@ -57,7 +55,6 @@ class MovieController extends AbstractController
      */
     public function addMovie(int $movieId, EntityManagerInterface $em) : Response
     {
-
         $movie = new Movie();
         $movie->setMovieId($movieId);
 
@@ -67,5 +64,9 @@ class MovieController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('movie_collection');
+    }
+
+    public function deleteMovie(int $movieId, MovieRepository $movieRepository, EntityManagerInterface $em) : Response
+    {
     }
 }
