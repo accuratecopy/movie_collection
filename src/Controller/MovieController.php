@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Movie;
+use App\Repository\MovieRepository;
 use App\Service\MovieLister;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,26 +15,59 @@ use Symfony\Component\Routing\Annotation\Route;
 class MovieController extends AbstractController
 {
     /**
-     * @Route("/movie/collection", name="movie_collection")
+     * @Route("/movies", name="movie_collection")
      */
-    public function index()
+    public function index(MovieLister $movieLister, MovieRepository $movie)
     {
+        $movies = $movie->findAll();
+        foreach($movies as $oneMovie) {
+            $movieJsons[] = $movieLister->listMovie($oneMovie->getMovieId());
+        }
+
+//        dd($movieJsons);
+
         return $this->render('movie/index.html.twig', [
-            'controller_name' => 'MovieController',
+            'movieJsons' => $movieJsons,
         ]);
     }
 
     /**
      * @Route("/movie/{movieId}", name="movie_show")
      * @param MovieLister $movieLister
-     * @ParamConverter("movieId", options={"movieId" = "id"})
+     * @param int $movieId
      * @return Response
+     * @ParamConverter("movieId", options={"movieId" = "id"})
      */
     public function show(MovieLister $movieLister, int $movieId) :Response
     {
         $movieDetails = $movieLister->listOneMovieById($movieId);
         return $this->render('movie/show.html.twig', [
             'movieDetails' => $movieDetails,
+        ]);
+    }
+
+    /**
+     * @Route("/movie/add/{movieId}", name="movie_add")
+     * @param int $movieId
+     * @param EntityManager $em
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @ParamConverter("movieId", options={"movieId" = "id"})
+     */
+    public function addMovie(int $movieId, EntityManagerInterface $em) : Response
+    {
+
+        $movie = new Movie();
+        $movie->setMovieId($movieId);
+
+        $movie->addUserId($this->getUser());
+
+        $em->persist($movie);
+        $em->flush();
+
+        return $this->redirectToRoute('movie_collection', [
+            'controller_name' => 'MovieController',
         ]);
     }
 }
