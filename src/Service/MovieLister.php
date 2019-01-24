@@ -42,4 +42,13 @@ class MovieLister
 
         return $json;
     }
+
+    public function listMovieByTitle(string $movieTitle)
+    {
+        $client = new GuzzleHttp\Client();
+        $request = $client->request('GET', 'https://api.themoviedb.org/3/search/movie/?api_key=' . self::API_KEY . self::LANGUAGE_REGION . '&query=' . $movieTitle);
+        $movieDetails = json_decode($request->getBody(), true);
+
+        return $movieDetails;
+    }
 }

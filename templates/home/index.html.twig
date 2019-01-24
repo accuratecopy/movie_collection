@@ -4,11 +4,14 @@
 
 {% block body %}
     <div class="container-fluid">
+        <div class="row justify-content-center">
         {{ form_start(form) }}
         {{ form_errors(form) }}
+        {{ form_row(form.search) }}
 
-        {{ form_row(form.submit, { 'label': 'Submit me' }) }}
+        {{ form_row(form.submit) }}
         {{ form_end(form) }}
+        </div>
     </div>
     <div class="container-fluid">
         <h1>Films populaires</h1>
