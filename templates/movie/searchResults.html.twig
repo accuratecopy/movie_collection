@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Résultats de la recherche{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+        {% for movieResult in movieResults %}
+            <div class="col-2 mb-3">
+                <div class="card bg-dark text-white">
+                    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ movieResult.poster_path }}" class="card-img-top" alt="{{ movieResult.title }}_poster">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movieResult.title }}</h5>
+                        <a href="{{ path('movie_show', {'movieId': movieResult.id }) }}" class="btn btn-info mb-2"><i class="fas fa-film"></i> Voir le film</a>
+                        <a href="{{ path('movie_add', {'movieId': movieResult.id}) }}" class="btn btn-info"><i class="fas fa-folder-plus"></i> Ajouter à la
+                            collection</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}
