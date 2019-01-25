@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ tvShowDetails.name }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ tvShowDetails.name }}</h1>
+    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ tvShowDetails.poster_path }}">
+    <ul>
+        <li>
+            Genre :
+        {% for i in 0..(tvShowDetails.genres|length-1) %}
+            {{ tvShowDetails.genres[i].name }}
+        {% endfor %}
+        </li>
+        <li>
+            Date de sortie : {{ tvShowDetails.first_air_date }}
+        </li>
+        <li>
+            Page web : <a href="{{ tvShowDetails.homepage }}" target="_blank">{{ tvShowDetails.homepage }}</a>
+        </li>
+        <li>
+            Résumé : {{ tvShowDetails.overview }}
+        </li>
+    </ul>
+</div>
+{% endblock %}

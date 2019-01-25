@@ -6,14 +6,22 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Derniers films ajoutés <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('movie_collection') }}">Ma collection</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Collection
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a href="{{ path('movie_collection') }}" class="nav-link"><i
+                                class="fas fa-sign-out-alt"></i> Ma collection de films</a>
+                    <a href="{{ path('tv_show_collection') }}" class="nav-link"><i
+                                class="fas fa-sign-out-alt"></i> Ma collection de séries TV</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('home') }}">Films Populaires</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('tv_show') }}">Séries TV Populaires</a>
             </li>
         </ul>
 
@@ -39,8 +47,6 @@
                 </div>
             </li>
             {% endif %}
-            <li class="mr-5">
-            </li>
         </ul>
     </div>
 </nav>
