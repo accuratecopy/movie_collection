@@ -1,0 +1,29 @@
+body{
+    background-color: #000000;
+    color: #FFFFFF;
+    margin-top: 5%;
+    font-family: 'Cabin Condensed', sans-serif;
+    font-size: 14pt;
+}
+
+.poster{
+    border: 5px solid #FFFFFF;
+}
+
+.media {
+    background-color: rgba(255,255,255,0.10);
+}
+
+.media .img {
+    height: 30%;
+    width: 30%;
+}
+
+div .card{
+    background-color: rgba(255,255,255,0.10);
+}
+
+.dropdown-menu {
+    background-color: #333333;
+}
+
