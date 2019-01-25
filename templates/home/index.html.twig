@@ -16,26 +16,28 @@
     <div class="container-fluid">
         <h1>Films populaires</h1>
         <div class="row">
-            <ul class="list">
-                {% for popularMovie in popularMovies %}
-                    <li class="media mr-5 mb-4">
-                        <img class="img-fluid mr-3"
-                             src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ popularMovie.poster_path }}"
-                             alt="Generic placeholder image">
-                        <div class="media-body">
+            {% for popularMovie in popularMovies %}
+                <div class="col-4">
+                    <div class="media mr-5 mb-3">
+                        <div class="media-body ml-3 mt-3">
                             <h3 class="mt-0 mb-3">{{ popularMovie.title }}</h3>
                             <p>Nom d'origine : {{ popularMovie.original_title }}</p>
                             <p>Date de sortie : {{ popularMovie.release_date }}</p>
-                            <p>{{ popularMovie.overview }}</p>
                             <p>
-                                <a href="{{ path('movie_show', {'movieId': popularMovie.id }) }}" class="btn btn-info"><i class="fas fa-film"></i> Voir le film</a>
-                                <a href="{{ path('movie_add', {'movieId': popularMovie.id}) }}" class="btn btn-info"><i class="fas fa-folder-plus"></i> Ajouter à la
+                                <a href="{{ path('movie_show', {'movieId': popularMovie.id }) }}"
+                                   class="btn btn-outline-info btn-sm"><i class="fas fa-film"></i> Voir le film</a>
+                                <a href="{{ path('movie_add', {'movieId': popularMovie.id}) }}"
+                                   class="btn btn-outline-success btn-sm"><i class="fas fa-folder-plus"></i> Ajouter
+                                    à la
                                     collection</a>
                             </p>
                         </div>
-                    </li>
-                {% endfor %}
-            </ul>
+                        <img class="img poster ml-3"
+                             src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ popularMovie.poster_path }}"
+                             alt="{{ popularMovie.title }}">
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

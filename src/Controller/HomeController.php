@@ -36,6 +36,7 @@ class HomeController extends AbstractController
         }
 
         $popularMovies = $movieLister->listPopularMovies();
+
         return $this->render('home/index.html.twig', [
             'popularMovies' => $popularMovies,
             'form' => $form->createView(),
