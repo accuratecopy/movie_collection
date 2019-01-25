@@ -50,9 +50,15 @@ class User implements UserInterface
      */
     private $movies;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\TVShow", mappedBy="userId")
+     */
+    private $tvShows;
+
     public function __construct()
     {
         $this->movies = new ArrayCollection();
+        $this->tvShows = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,6 +186,34 @@ class User implements UserInterface
         if ($this->movies->contains($movie)) {
             $this->movies->removeElement($movie);
             $movie->removeUserId($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TVShow[]
+     */
+    public function getTvShows(): Collection
+    {
+        return $this->tvShows;
+    }
+
+    public function addTvShow(TVShow $tvShow): self
+    {
+        if (!$this->tvShows->contains($tvShow)) {
+            $this->tvShows[] = $tvShow;
+            $tvShow->addUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTvShow(TVShow $tvShow): self
+    {
+        if ($this->tvShows->contains($tvShow)) {
+            $this->tvShows->removeElement($tvShow);
+            $tvShow->removeUserId($this);
         }
 
         return $this;
