@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Séries TV les plus populaires{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1>Séries TV populaires</h1>
+        <div class="row">
+            {% for popularTVShow in popularTVShows %}
+                <div class="col-4">
+                    <div class="media mr-5 mb-3">
+                        <div class="media-body ml-3 mt-3">
+                            <h3 class="mt-0 mb-3">{{ popularTVShow.name }}</h3>
+                            <p>Nom d'origine : {{ popularTVShow.original_name }}</p>
+                            <p>Date de sortie : {{ popularTVShow.first_air_date}}</p>
+                            <p>
+                                <a href="{{ path('tv_show_show', {'tvShowId': popularTVShow.id }) }}"
+                                   class="btn btn-outline-info btn-sm"><i class="fas fa-film"></i> Voir la série</a>
+                                <a href="{{ path('tv_show_add', {'tvShowId': popularTVShow.id}) }}"
+                                   class="btn btn-outline-success btn-sm"><i class="fas fa-folder-plus"></i> Ajouter
+                                    à la
+                                    collection</a>
+                            </p>
+                        </div>
+                        <img class="img poster ml-3"
+                             src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ popularTVShow.poster_path }}"
+                             alt="{{ popularTVShow.name }}">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

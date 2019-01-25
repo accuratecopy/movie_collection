@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Ma collection de séries TV{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1>Ma collection de séries TV</h1>
+        <div class="row">
+            {% for tvShowJson in tvShowJsons %}
+                <div class="col-2">
+                    <div class="card text-white">
+                        <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ tvShowJson.poster_path }}" class="card-img-top poster" alt="{{ tvShowJson.name }}_poster">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tvShowJson.name }}</h5>
+                            <a href="{{ path('tv_show_show', {'tvShowId': tvShowJson.id }) }}" class="btn btn-outline-info btn-sm mb-2"><i class="fas fa-film"></i> Voir la série</a>
+                            <a href="{{ path('tv_show_remove', {'tvShowId': tvShowJson.id }) }}" class="btn btn-outline-danger btn-sm mb-2"><i class="far fa-trash-alt"></i> Supprimer de la collection</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
