@@ -8,18 +8,18 @@
     <h1>{{ movieDetails.title }}</h1>
     </div>
     <div class="row">
-        <div class="col-8">
+        <div class="col-7">
             <h1>Informations</h1>
         <img class="poster rounded mb-2" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ movieDetails.poster_path }}">
             <ul class="list-unstyled">
                 <li>
                     Genre :
                 {% for i in 0..(movieDetails.genres|length-1) %}
-                    {{ movieDetails.genres[i].name }}
+                    {{ movieDetails.genres[i].name }},
                 {% endfor %}
                 </li>
                 <li>
-                    Date de sortie : {{ movieDetails.release_date }}
+                    Date de sortie : {{ movieDetails.release_date|date('d/m/Y') }}
                 </li>
                 {% if movieDetails.homepage %}
                 <li>
@@ -31,7 +31,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-4">
+        <div class="col-5">
             <h1>Distribution / Acteurs</h1>
             <div class="row no-gutters">
             {% for movieCast in movieCasts %}

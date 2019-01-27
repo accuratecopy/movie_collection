@@ -61,8 +61,6 @@ class MovieController extends AbstractController
         $movieDetails = $movieLister->listOneMovieById($movieId);
         $movieCasts = $movieLister->listMovieCastById($movieId)['cast'];
 
-//        dd($movieCasts);
-
         return $this->render('movie/show.html.twig', [
             'movieDetails' => $movieDetails,
             'movieCasts' => $movieCasts,

@@ -6,6 +6,16 @@ body {
     font-size: 13pt;
 }
 
+nav {
+    background-color: #9a0a02;
+    font-family: "Courier 10 Pitch";
+}
+
+a.navbar-brand {
+    font-family: "Courier 10 Pitch";
+    font-size: 18pt;
+}
+
 .home_background {
     width: 100vw;
     height: 90vh;
@@ -14,13 +24,42 @@ body {
     background-size: 100% 100%;
 }
 
-.form-control-lg {
-    margin-top: 30vh;
+/* form */
+
+.search_field {
+    margin-top: 25vh;
     height: 10vh;
     width: 50vw;
     background-color: rgba(255,255,255,0.10);
     border: black;
     font-size: 25pt;
+    color: #FFFFFF;
+}
+
+.search_options {
+    margin-top: 1vh;
+    height: 8vh;
+    width: 16.5vw;
+    background-color: rgba(255,255,255,0.30);
+    border: black;
+    font-size: 25pt;
+    color: #FFFFFF;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.search_options_text_field {
+    margin-top: 1vh;
+    height: 8vh;
+    width: 16.5vw;
+    background-color: rgba(255,255,255,0.10);
+    border: black;
+    font-size: 25pt;
+    color: #FFFFFF;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .btn-submit{
