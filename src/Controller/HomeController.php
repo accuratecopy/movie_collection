@@ -9,10 +9,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/home")
+ */
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/popular", name="home")
+     * @Route("/", name="home")
      * @param Request $request
      * @param MovieLister $movieLister
      * @return Response
@@ -35,10 +38,7 @@ class HomeController extends AbstractController
             ]);
         }
 
-        $popularMovies = $movieLister->listPopularMovies();
-
         return $this->render('home/index.html.twig', [
-            'popularMovies' => $popularMovies,
             'form' => $form->createView(),
         ]);
     }

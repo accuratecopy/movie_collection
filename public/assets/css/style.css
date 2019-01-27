@@ -1,12 +1,33 @@
-body{
+body {
     background-color: #000000;
     color: #FFFFFF;
     margin-top: 5%;
-    font-family: 'Cabin Condensed', sans-serif;
-    font-size: 14pt;
+    font-family: 'Oxygen', sans-serif;
+    font-size: 13pt;
 }
 
-.poster{
+.home_background {
+    width: 100vw;
+    height: 90vh;
+    background-image: url("http://www.laura-massis.com/wp-content/uploads/2017/02/fond-cinema.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.form-control-lg {
+    margin-top: 30vh;
+    height: 10vh;
+    width: 50vw;
+    background-color: rgba(255,255,255,0.10);
+    border: black;
+    font-size: 25pt;
+}
+
+.btn-submit{
+    display: none;
+}
+
+.poster {
     border: 5px solid #FFFFFF;
 }
 
@@ -19,7 +40,7 @@ body{
     width: 30%;
 }
 
-div .card{
+div .card {
     background-color: rgba(255,255,255,0.10);
 }
 

@@ -13,12 +13,19 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search', TextType::class, ['label' => 'Recherche'])
+            ->add('search', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'form-control-lg',
+                    'placeholder' => 'Rechercher un film, une série TV...'
+                ]
+            ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Rechercher',
-                'attr'  => [
-                    'class' => 'btn btn-info',
-                ],]);
+                'label' => 'Recherche',
+                'attr' => [
+                    'class' => 'btn btn-danger btn-lg btn-submit ml-2',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

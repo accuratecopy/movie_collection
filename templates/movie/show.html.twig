@@ -4,24 +4,51 @@
 
 {% block body %}
 <div class="container">
+    <div class="row justify-content-center">
     <h1>{{ movieDetails.title }}</h1>
-    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ movieDetails.poster_path }}">
-    <ul>
-        <li>
-            Genre :
-        {% for i in 0..(movieDetails.genres|length-1) %}
-            {{ movieDetails.genres[i].name }}
-        {% endfor %}
-        </li>
-        <li>
-            Date de sortie : {{ movieDetails.release_date }}
-        </li>
-        <li>
-            Page web : <a href="{{ movieDetails.homepage }}" target="_blank">{{ movieDetails.homepage }}</a>
-        </li>
-        <li>
-            Résumé : {{ movieDetails.overview }}
-        </li>
-    </ul>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <h1>Informations</h1>
+        <img class="poster rounded mb-2" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ movieDetails.poster_path }}">
+            <ul class="list-unstyled">
+                <li>
+                    Genre :
+                {% for i in 0..(movieDetails.genres|length-1) %}
+                    {{ movieDetails.genres[i].name }}
+                {% endfor %}
+                </li>
+                <li>
+                    Date de sortie : {{ movieDetails.release_date }}
+                </li>
+                {% if movieDetails.homepage %}
+                <li>
+                    Page web : <a href="{{ movieDetails.homepage }}" target="_blank">{{ movieDetails.homepage }}</a>
+                </li>
+                {% endif %}
+                <li>
+                    Résumé : {{ movieDetails.overview }}
+                </li>
+            </ul>
+        </div>
+        <div class="col-4">
+            <h1>Distribution / Acteurs</h1>
+            <div class="row no-gutters">
+            {% for movieCast in movieCasts %}
+                {% if movieCast.profile_path %}
+            <div class="col-4">
+                <div class="card bg-dark text-white">
+                    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ movieCast.profile_path }}" class="card-img rounded" alt="{{ movieCast.name }}">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title">{{ movieCast.name }}</h5>
+                        <p class="card-text">{{ movieCast.character }}</p>
+                    </div>
+                </div>
+            </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
