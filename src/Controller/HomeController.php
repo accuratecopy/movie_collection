@@ -4,20 +4,25 @@ namespace App\Controller;
 
 use App\Form\SearchType;
 use App\Service\MovieLister;
+use App\Service\TVShowLister;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/home")
+ */
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/popular", name="home")
+     * @Route("/", name="home")
      * @param Request $request
      * @param MovieLister $movieLister
+     * @param TVShowLister $TVShowLister
      * @return Response
      */
-    public function index(Request $request, MovieLister $movieLister) :Response
+    public function index(Request $request, MovieLister $movieLister, TVShowLister $tvShowLister) :Response
     {
         $form = $this->createForm(
             SearchType::class
@@ -25,20 +30,32 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+
             $searchData = $data['search'];
             $searchDataResult = implode('+', explode(' ', $searchData));
 
-            $movieResults = ($movieLister->listMovieByTitle($searchDataResult))['results'];
+            $searchMediaType = $data['media_type'];
 
-            return $this->render('movie/searchResults.html.twig', [
-                'movieResults' => $movieResults,
-            ]);
+            if ('tv_show' === $searchMediaType) {
+                $tvShowResults = ($tvShowLister->listTVShowByTitle($searchDataResult))['results'];
+
+                return $this->render('tv_show/searchResults.html.twig', [
+                    'tvShowResultsNumber' => count($tvShowResults),
+                    'tvShowResults' => $tvShowResults,
+                    'searchData' => $searchData
+                ]);
+            } else {
+                $movieResults = ($movieLister->listMovieByTitle($searchDataResult))['results'];
+
+                return $this->render('movie/searchResults.html.twig', [
+                    'movieResultsNumber' => count($movieResults),
+                    'movieResults' => $movieResults,
+                    'searchData' => $searchData
+                ]);
+            }
         }
 
-        $popularMovies = $movieLister->listPopularMovies();
-
         return $this->render('home/index.html.twig', [
-            'popularMovies' => $popularMovies,
             'form' => $form->createView(),
         ]);
     }

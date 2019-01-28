@@ -11,28 +11,46 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * @Route("/movie")
+ */
 class MovieController extends AbstractController
 {
     /**
-     * @Route("/movies", name="movie_collection")
+     * @Route("/", name="movie")
+     * @param MovieLister $movieLister
+     * @return Response
+     */
+    public function index(MovieLister $movieLister) :Response
+    {
+        $popularMovies = $movieLister->listPopularMovies();
+
+        return $this->render('movie/index.html.twig', [
+            'popularMovies' => $popularMovies,
+        ]);
+    }
+
+    /**
+     * @Route("/collection", name="movie_collection")
      * @param MovieLister $movieLister
      * @param MovieRepository $movieRepository
      * @return Response
      */
-    public function index(MovieLister $movieLister, MovieRepository $movieRepository) :Response
+    public function indexCollection(MovieLister $movieLister, MovieRepository $movieRepository) :Response
     {
         $movies = $movieRepository->findAll();
         foreach($movies as $movie) {
             $movieJsons[] = $movieLister->listMovie($movie->getMovieId());
         }
 
-        return $this->render('movie/index.html.twig', [
+        return $this->render('movie/collection.html.twig', [
             'movieJsons' => $movieJsons,
         ]);
     }
 
     /**
-     * @Route("/movie/{movieId}", name="movie_show")
+     * @Route("/{movieId}", name="movie_show")
      * @param MovieLister $movieLister
      * @param int $movieId
      * @return Response
@@ -41,13 +59,16 @@ class MovieController extends AbstractController
     public function show(MovieLister $movieLister, int $movieId) :Response
     {
         $movieDetails = $movieLister->listOneMovieById($movieId);
+        $movieCasts = $movieLister->listMovieCastById($movieId)['cast'];
+
         return $this->render('movie/show.html.twig', [
             'movieDetails' => $movieDetails,
+            'movieCasts' => $movieCasts,
         ]);
     }
 
     /**
-     * @Route("/movie/add/{movieId}", name="movie_add")
+     * @Route("/add/{movieId}", name="movie_add")
      * @param int $movieId
      * @param EntityManagerInterface $em
      * @return Response
@@ -67,7 +88,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movie/remove/{movieId}", name="movie_remove")
+     * @Route("/remove/{movieId}", name="movie_remove")
      * @param int $movieId
      * @param MovieRepository $movieRepository
      * @param EntityManagerInterface $em

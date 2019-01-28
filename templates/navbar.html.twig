@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
-    <a class="navbar-brand" href="#">Logo</a>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <a class="navbar-brand website_name" href="{{ path('home') }}"><i class="fas fa-film"></i> The Movie Collection <i class="fas fa-film"></i></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,14 +11,12 @@
                     Collection
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a href="{{ path('movie_collection') }}" class="nav-link"><i
-                                class="fas fa-sign-out-alt"></i> Ma collection de films</a>
-                    <a href="{{ path('tv_show_collection') }}" class="nav-link"><i
-                                class="fas fa-sign-out-alt"></i> Ma collection de séries TV</a>
+                    <a href="{{ path('movie_collection') }}" class="nav-link"><i class="fas fa-film"></i> Ma collection de films</a>
+                    <a href="{{ path('tv_show_collection') }}" class="nav-link"><i class="fas fa-film"></i> Ma collection de séries TV</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('home') }}">Films Populaires</a>
+                <a class="nav-link" href="{{ path('movie') }}">Films Populaires</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('tv_show') }}">Séries TV Populaires</a>
