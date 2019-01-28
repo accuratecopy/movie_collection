@@ -1,0 +1,80 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ peopleDetails.name }}{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+    <h1>{{ peopleDetails.name }}</h1>
+    </div>
+    <div class="row ml-5">
+        <div class="col-7-sm">
+            <h1>Biographie</h1>
+        </div>
+    </div>
+    <div class="row ml-5">
+        <div class="col-5">
+        <img class="poster rounded mb-2" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ peopleDetails.profile_path }}">
+        </div>
+        <div class="col-7">
+            <ul class="list-unstyled">
+                <li>
+                    {{ peopleDetails.known_for_department }}
+                </li>
+                <li>
+                    Date de naissance : {{ peopleDetails.birthday|date('d/m/Y') }}
+                </li>
+                <li>
+                    Lieu de naissance : {{ peopleDetails.place_of_birth }}
+                </li>
+                    {% if peopleDetails.deathday %}
+                        <li>
+                    Date de décès : {{ peopleDetails.deathday|date('d/m/Y') }}
+                        </li>
+                    {% endif %}
+                {% if peopleDetails.biography %}
+                <li>
+                    {{ peopleDetails.biography }}
+                </li>
+                {% endif %}
+            </ul>
+            <div class="row">
+                <div class="col-7-sm mt-3">
+                    <h1>Personnages joués :</h1>
+                </div>
+            </div>
+            <div class="row">
+                {% for peopleMovieCast in peopleMovieCasts %}
+                    <div class="col-2">
+                        <div class="card mt-3">
+                            <img class="card-img-top poster rounded" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ peopleMovieCast.poster_path }}" alt="{{ peopleMovieCast.title }}">
+                            <div class="card-body">
+                                <p class="card-title">{{ peopleMovieCast.character }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if peopleMovieCrews is defined %}
+            <div class="row">
+                <div class="col-7-sm mt-3">
+                    <h1>Rôle dans :</h1>
+                </div>
+            </div>
+            <div class="row">
+                {% for peopleMovieCrew in peopleMovieCrews %}
+                    <div class="col-2">
+                        <div class="card mt-3">
+                            <img class="card-img-top poster rounded" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ peopleMovieCrew.poster_path }}" alt="{{ peopleMovieCrew.title }}">
+                            <div class="card-body">
+                                <p class="card-title">{{ peopleMovieCrew.department }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

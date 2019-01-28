@@ -34,6 +34,15 @@ class PeopleLister
         return $peopleDetails;
     }
 
+    public function listMovieCreditsById(int $peopleId)
+    {
+        $client = new GuzzleHttp\Client();
+        $request = $client->request('GET', self::BASE_URI_MOVIE . $peopleId . '/movie_credits' . '?api_key=' . self::API_KEY . '&append_to_response=videos,images' . self::LANGUAGE_REGION);
+        $peopleMovieCredits = json_decode($request->getBody(), true);
+
+        return $peopleMovieCredits;
+    }
+
     public function listPeople(int $peopleId)
     {
         $client = new GuzzleHttp\Client();

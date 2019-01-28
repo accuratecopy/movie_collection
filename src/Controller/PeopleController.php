@@ -58,10 +58,37 @@ class PeopleController extends AbstractController
     public function show(peopleLister $peopleLister, int $peopleId) :Response
     {
         $peopleDetails = $peopleLister->listOnePeopleById($peopleId);
+        $peopleMovieCredits = $peopleLister->listMovieCreditsById($peopleId);
+
+        $totalPeopleMovieCasts = $peopleMovieCredits['cast'];
+        $totalPeopleMovieCrews = $peopleMovieCredits['crew'];
+
+        if(count($totalPeopleMovieCasts) > 5) {
+            for ($i = 0; $i < 5; $i++) {
+                $peopleMovieCasts[] = $totalPeopleMovieCasts[rand(0, count($totalPeopleMovieCasts) - 1)];
+            }
+        }
+
+        if(count($totalPeopleMovieCrews) > 5) {
+            for ($i = 0; $i < 5; $i++) {
+                $peopleMovieCrews[] = $totalPeopleMovieCrews[rand(0, count($totalPeopleMovieCrews) - 1)];
+            }
+        }
+
+        if(isset($peopleMovieCrews)) {
+            return $this->render('people/show.html.twig', [
+                'peopleDetails' => $peopleDetails,
+                'peopleMovieCasts' => $peopleMovieCasts,
+                'peopleMovieCrews' => $peopleMovieCrews
+            ]);
+        }
 
         return $this->render('people/show.html.twig', [
             'peopleDetails' => $peopleDetails,
+            'peopleMovieCasts' => $peopleMovieCasts,
         ]);
+
+
     }
 
     /**
