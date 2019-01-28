@@ -75,20 +75,38 @@ class PeopleController extends AbstractController
             }
         }
 
-        if(isset($peopleMovieCrews)) {
-            return $this->render('people/show.html.twig', [
-                'peopleDetails' => $peopleDetails,
-                'peopleMovieCasts' => $peopleMovieCasts,
-                'peopleMovieCrews' => $peopleMovieCrews
-            ]);
+        switch (isset($peopleMovieCasts)) {
+            case true:
+                switch (isset($peopleMovieCrews)) {
+                    case true:
+                        return $this->render('people/show.html.twig', [
+                            'peopleDetails' => $peopleDetails,
+                            'peopleMovieCasts' => $peopleMovieCasts,
+                            'peopleMovieCrews' => $peopleMovieCrews
+                        ]);
+                    case false:
+                        return $this->render('people/show.html.twig', [
+                            'peopleDetails' => $peopleDetails,
+                            'peopleMovieCasts' => $peopleMovieCasts,
+                        ]);
+                }
+            case false:
+                switch (isset($peopleMovieCrews)) {
+                    case true:
+                        return $this->render('people/show.html.twig', [
+                            'peopleDetails' => $peopleDetails,
+                            'peopleMovieCrews' => $peopleMovieCrews
+                        ]);
+                    case false:
+                        return $this->render('people/show.html.twig', [
+                            'peopleDetails' => $peopleDetails,
+                        ]);
+                }
         }
 
         return $this->render('people/show.html.twig', [
             'peopleDetails' => $peopleDetails,
-            'peopleMovieCasts' => $peopleMovieCasts,
         ]);
-
-
     }
 
     /**

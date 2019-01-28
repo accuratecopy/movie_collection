@@ -38,6 +38,7 @@
                 </li>
                 {% endif %}
             </ul>
+            {% if peopleMovieCasts is defined %}
             <div class="row">
                 <div class="col-7-sm mt-3">
                     <h1>Personnages joués :</h1>
@@ -55,6 +56,7 @@
                     </div>
                 {% endfor %}
             </div>
+            {% endif %}
             {% if peopleMovieCrews is defined %}
             <div class="row">
                 <div class="col-7-sm mt-3">

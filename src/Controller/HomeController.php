@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SearchType;
 use App\Service\MovieLister;
+use App\Service\PeopleLister;
 use App\Service\TVShowLister;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +23,7 @@ class HomeController extends AbstractController
      * @param TVShowLister $tvShowLister
      * @return Response
      */
-    public function index(Request $request, MovieLister $movieLister, TVShowLister $tvShowLister) :Response
+    public function index(Request $request, MovieLister $movieLister, TVShowLister $tvShowLister, PeopleLister $peopleLister) :Response
     {
         $form = $this->createForm(
             SearchType::class
@@ -36,22 +37,33 @@ class HomeController extends AbstractController
 
             $searchMediaType = $data['media_type'];
 
-            if ('tv_show' === $searchMediaType) {
-                $tvShowResults = ($tvShowLister->listTVShowByTitle($searchDataResult))['results'];
+            switch ($searchMediaType) {
+                case 'movie':
+                    $movieResults = ($movieLister->listMovieByTitle($searchDataResult))['results'];
 
-                return $this->render('tv_show/searchResults.html.twig', [
-                    'tvShowResultsNumber' => count($tvShowResults),
-                    'tvShowResults' => $tvShowResults,
-                    'searchData' => $searchData
-                ]);
-            } else {
-                $movieResults = ($movieLister->listMovieByTitle($searchDataResult))['results'];
+                    return $this->render('movie/searchResults.html.twig', [
+                        'movieResultsNumber' => count($movieResults),
+                        'movieResults' => $movieResults,
+                        'searchData' => $searchData
+                    ]);
 
-                return $this->render('movie/searchResults.html.twig', [
-                    'movieResultsNumber' => count($movieResults),
-                    'movieResults' => $movieResults,
-                    'searchData' => $searchData
-                ]);
+                case 'tv_show':
+                    $tvShowResults = ($tvShowLister->listTVShowByTitle($searchDataResult))['results'];
+
+                    return $this->render('tv_show/searchResults.html.twig', [
+                        'tvShowResultsNumber' => count($tvShowResults),
+                        'tvShowResults' => $tvShowResults,
+                        'searchData' => $searchData
+                    ]);
+
+                case 'people':
+                    $peopleResults = ($peopleLister->listPeopleByName($searchDataResult))['results'];
+
+                    return $this->render('people/searchResults.html.twig', [
+                        'peopleResultsNumber' => count($peopleResults),
+                        'peopleResults' => $peopleResults,
+                        'searchData' => $searchData
+                    ]);
             }
         }
 

@@ -5,18 +5,17 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row justify-content-center">
-        <h1>{{ movieResultsNumber }} films avec les mots clés "{{ searchData }}" :</h1>
+        <h1>{{ peopleResultsNumber }} acteurs/actrices avec les mots clés "{{ searchData }}" :</h1>
         </div>
         <div class="row">
-        {% for movieResult in movieResults %}
+        {% for peopleResult in peopleResults %}
             <div class="col-2 mb-3">
                 <div class="card text-white">
-                    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ movieResult.poster_path }}" class="card-img-top poster" alt="{{ movieResult.title }}_poster">
+                    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ peopleResult.profile_path }}" class="card-img-top poster" alt="{{ peopleResult.name }}_poster">
                     <div class="card-body">
-                        <h5 class="card-title">{{ movieResult.title }}</h5>
-                        <a href="{{ path('movie_show', {'movieId': movieResult.id }) }}" class="btn btn-outline-info btn-sm mb-2"><i class="fas fa-film"></i> Voir le film</a>
-                        <a href="{{ path('movie_add', {'movieId': movieResult.id}) }}" class="btn btn-outline-success btn-sm mb-2"><i class="fas fa-folder-plus"></i> Ajouter à la
-                            collection</a>
+                        <h5 class="card-title">{{ peopleResult.name }}</h5>
+                        <a href="{{ path('people_show', {'peopleId': peopleResult.id }) }}" class="btn btn-outline-info btn-sm mb-2"><i class="fas fa-film"></i> Voir la biographie</a>
+                        <a href="{{ path('people_add', {'peopleId': peopleResult.id}) }}" class="btn btn-outline-success btn-sm mb-2"><i class="fas fa-folder-plus"></i> Suivre</a>
                     </div>
                 </div>
             </div>

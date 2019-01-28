@@ -55,7 +55,7 @@ class PeopleLister
     public function listPeopleByName(string $peopleName)
     {
         $client = new GuzzleHttp\Client();
-        $request = $client->request('GET', 'https://api.themoviedb.org/3/search/movie/?api_key=' . self::API_KEY . self::LANGUAGE_REGION . '&query=' . $peopleName);
+        $request = $client->request('GET', 'https://api.themoviedb.org/3/search/person/?api_key=' . self::API_KEY . self::LANGUAGE_REGION . '&query=' . $peopleName);
         $peopleDetails = json_decode($request->getBody(), true);
 
         return $peopleDetails;
