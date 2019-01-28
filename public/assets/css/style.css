@@ -11,6 +11,11 @@ nav {
     font-family: "Courier 10 Pitch";
 }
 
+h1 {
+    font-family: "Courier 10 Pitch";
+    margin-bottom: 2.5%;
+}
+
 a.navbar-brand {
     font-family: "Courier 10 Pitch";
     font-size: 18pt;

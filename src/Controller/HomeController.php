@@ -40,7 +40,9 @@ class HomeController extends AbstractController
                 $tvShowResults = ($tvShowLister->listTVShowByTitle($searchDataResult))['results'];
 
                 return $this->render('tv_show/searchResults.html.twig', [
+                    'tvShowResultsNumber' => count($tvShowResults),
                     'tvShowResults' => $tvShowResults,
+                    'searchData' => $searchData
                 ]);
             } else {
                 $movieResults = ($movieLister->listMovieByTitle($searchDataResult))['results'];
