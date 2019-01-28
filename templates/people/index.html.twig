@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}People les plus populaires{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1>People populaires</h1>
+        <div class="row">
+            {% for popularPerson in popularPeople %}
+                <div class="col-4">
+                    <div class="media mr-5 mb-3">
+                        <div class="media-body ml-3 mt-3">
+                            <h3 class="mt-0 mb-3">{{ popularPerson.name }}</h3>
+                            <p>
+                                <a href="{{ path('people_show', {'peopleId': popularPerson.id }) }}"
+                                   class="btn btn-outline-info btn-sm"><i class="fas fa-film"></i> Voir le people</a>
+                                <a href="{{ path('people_add', {'peopleId': popularPerson.id}) }}"
+                                   class="btn btn-outline-success btn-sm"><i class="fas fa-folder-plus"></i> Ajouter
+                                    aux people
+                                    favoris</a>
+                            </p>
+                        </div>
+                        <img class="img poster ml-3"
+                             src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ popularPerson.profile_path }}"
+                             alt="{{ popularPerson.name }}">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
