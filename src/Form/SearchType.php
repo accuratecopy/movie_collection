@@ -18,7 +18,8 @@ class SearchType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'film' => 'movie',
-                    'série TV' => 'tv_show'
+                    'série TV' => 'tv_show',
+                    'acteur' => 'people'
                 ],
                 'attr' => [
                     'class' => 'form-control-lg search_options'
@@ -47,7 +48,7 @@ class SearchType extends AbstractType
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control-lg search_field',
-                    'placeholder' => 'Rechercher un film, une série TV...'
+                    'placeholder' => 'Rechercher un film, une série TV, un acteur...'
                 ]
             ])
             ->add('submit', SubmitType::class, [

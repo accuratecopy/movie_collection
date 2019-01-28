@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Mes acteurs préférés{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1>Mes acteurs/actrices préférés</h1>
+    <div class="row">
+        {% for peopleJson in peopleJsons %}
+        <div class="col-2">
+            <div class="card text-white">
+                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ peopleJson.profile_path }}" class="card-img-top poster" alt="{{ peopleJson.name }}_poster">
+                <div class="card-body">
+                    <h5 class="card-title">{{ peopleJson.name }}</h5>
+                    <a href="{{ path('people_show', {'peopleId': peopleJson.id }) }}" class="btn btn-outline-info btn-sm mb-2"><i class="fas fa-film"></i> Voir l'acteur</a>
+                    <a href="{{ path('people_remove', {'peopleId': peopleJson.id }) }}" class="btn btn-outline-danger btn-sm mb-2"><i class="far fa-trash-alt"></i> Ne plus suivre</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
