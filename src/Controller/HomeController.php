@@ -19,7 +19,7 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      * @param Request $request
      * @param MovieLister $movieLister
-     * @param TVShowLister $TVShowLister
+     * @param TVShowLister $tvShowLister
      * @return Response
      */
     public function index(Request $request, MovieLister $movieLister, TVShowLister $tvShowLister) :Response
